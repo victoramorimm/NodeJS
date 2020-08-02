@@ -5,19 +5,24 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev src/server.ts"
+    "dev:server": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg": "^8.3.0",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.7.1",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-import-resolver-typescript": "^2.2.0",
-    "eslint-plugin-import": "2.21.2",
+    "eslint": "^7.6.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
   }
