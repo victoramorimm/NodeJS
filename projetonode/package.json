@@ -1,0 +1,12 @@
+{
+  "name": "projetonode",
+  "version": "1.0.0",
+  "scripts": {
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
