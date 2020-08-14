@@ -1,12 +1,11 @@
 const express = require('express');
+const homeController = require('../controllers/homeController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
-router.get('/', (request, response) => {
-    let obj = {
-    };
+router.get('/', homeController.index);
 
-    response.render('home', obj);
-});
+router.get('/users/login', userController.login);
 
 module.exports = router;

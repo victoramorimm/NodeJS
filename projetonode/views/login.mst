@@ -1,0 +1,6 @@
+<h1>LOGIN</h1>
+
+<form>
+    <input type="text" placeholder="Digite aqui"/>
+    <button type="submit">Enviar</button>
+</form>
