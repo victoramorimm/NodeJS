@@ -6,14 +6,14 @@ const helpers = require('./helpers');
 const app = express();
 
 app.use((request, response, next) => {
-    response.locals.h = helpers;
+    response.locals.h = helpers; 
 
     next();
 })
 
-app.use('/', router);
-
 app.use(express.json());
+
+app.use('/', router);
 
 app.engine('mst', mustache(__dirname + '/views/partials', '.mst'));
 app.set('view engine', 'mst');
