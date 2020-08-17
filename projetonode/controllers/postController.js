@@ -8,7 +8,13 @@ exports.add = (request, response) => {
 exports.addAction = async (request, response) => {
     const post = new Post(request.body);
     
-    await post.save();
+    try {
+        await post.save();
+    } catch (error) {
+        request.flash('error', 'Ocorreu um erro! Tente novamente mais tarde');
+    }
+
+    request.flash('success', 'Post salvo com sucesso!');
 
     response.redirect('/');
 } 

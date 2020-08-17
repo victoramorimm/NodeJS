@@ -5,7 +5,7 @@
 <form method="POST">
     <label>
         Título:
-        <input type="text" name="title" />
+        <input type="text" name="title" required />
     </label>
     <br />
     <label>
