@@ -16,15 +16,17 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-app.use(cookieParser(process.env.SECRET));
+app.use(express.static(__dirname + '/public'));
+
+app.use(cookieParser(process.env.SECRET)); 
 
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
 }));
-
-app.use(flash());
+ 
+app.use(flash()); 
 
 app.use((request, response, next) => {
     response.locals.h = helpers;  

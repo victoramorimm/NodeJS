@@ -7,6 +7,8 @@ exports.add = (request, response) => {
 }
 
 exports.addAction = async (request, response) => {
+   request.body.tags = request.body.tags.split(',').map(tag => tag.trim());
+
     const post = new Post(request.body);
     
     try {
@@ -28,6 +30,8 @@ exports.edit = async (request, response) => {
 
 exports.editAction = async (request, response) => {
     request.body.slug = slug(request.body.title, { lower: true });
+    
+    request.body.tags = request.body.tags.split(',').map(tag => tag.trim());
 
     try {
       const post = await Post.findOneAndUpdate(
@@ -48,4 +52,10 @@ exports.editAction = async (request, response) => {
     request.flash('success', 'Post atualizado com sucesso!');
 
     response.redirect('/');
+}
+
+exports.view = async (request, response) => {
+    const post = await Post.findOne({ slug: request.params.slug });
+
+    response.render('view', { post });
 }

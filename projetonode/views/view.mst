@@ -1,0 +1,9 @@
+{{>header}}
+
+<h1>{{post.title}}</h1>
+
+<article>{{post.body}}</article>
+
+<hr />
+
+<small>Tags: {{post.tags}}</small>

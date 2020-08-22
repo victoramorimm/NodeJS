@@ -1,26 +1,30 @@
 <html>
 <head>
-
-    {{#pageTitle}}
-    <title>{{pageTitle}}</title>
-    {{/pageTitle}}
-
-    {{^pageTitle}}
-    <title>{{h.defaultPageTitle}}</title>
-    {{/pageTitle}}
+    <title>{{pageTitle}} {{h.defaultPageTitle}}</title>
+    <link rel="stylesheet" href="/assets/css/template.css" />
 </head>
 <body>
-<h1>Cabeçalho</h1>
-<hr />
-<ul>
-    {{ #h.menu }}
-    <li> <a href="{{slug}}">{{name}}</a> </li>
-    {{/h.menu}}
-</ul>
+<header>
+    <h1>Cabeçalho</h1>
+    <hr />
+    <ul>
+        {{ #h.menu }}
+        <li> <a href="{{slug}}">{{name}}</a> </li>
+        {{/h.menu}}
+    </ul>
+<header>
 <hr />
 
 {{#flashes}}
     {{#success}}
-        <div>{{.}}</div>
+        <div class="warning">{{.}}</div>
     {{/success}}
+
+    {{#error}}
+        <div class="warning">{{.}}</div>
+    {{/error}}
+    
+    {{#info}}
+        <div class="warning">{{.}}</div>
+    {{/info}}
 {{/flashes}}
