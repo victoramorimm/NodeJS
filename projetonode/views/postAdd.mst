@@ -2,7 +2,14 @@
 
 <h2>Adicionar Post</h2>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
+    <label>
+        Imagem:
+        <input type="file" name="photo" />
+    </label>
+    
+    <br />
+    
     <label>
         Título:
         <input type="text" name="title" required />
