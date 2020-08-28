@@ -4,8 +4,15 @@ const Post = mongoose.model('Post');
 exports.index = async (request, response) => {
     let responseJson = {
         pageTitle: 'HOME',
-        posts: []
+        posts: [],
+        tags: []
     };
+
+    const tags = await Post.getTagsList();
+    
+    console.log(tags);
+
+    responseJson.tags = tags;
 
     const posts = await Post.find();
     
