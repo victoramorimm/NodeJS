@@ -6,6 +6,8 @@ const errorHandler = require('./handlers/errorHandler');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
@@ -35,6 +37,18 @@ app.use((request, response, next) => {
 
     next();
 })
+
+app.use(passport.initialize());
+
+app.use(passport.session());
+
+const User = require('./models/User');
+ 
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', router);  
 
