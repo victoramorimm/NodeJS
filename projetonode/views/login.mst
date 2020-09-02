@@ -2,7 +2,24 @@
 
 <h1>LOGIN</h1>
 
-<form>
-    <input type="text" placeholder="Digite aqui"/>
-    <button type="submit">Enviar</button>
+<form method="POST">
+
+    <label>
+        E-mail:
+        <input type="email" name="email" />
+    </label>
+
+    <br />
+
+    <label>
+        Senha: 
+        <input type="password" name="password" />
+    </label>
+
+    <br />
+
+    <label>
+        <input type="submit" value="Cadastrar" />
+    </label>
+
 </form>
