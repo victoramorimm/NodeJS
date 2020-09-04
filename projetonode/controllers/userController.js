@@ -17,6 +17,8 @@ exports.loginAction = (request, response) => {
             return;
         }
 
+        request.login(result, () => {});
+
         request.flash('success', 'Você foi logado com sucesso!');
 
         response.redirect('/');
@@ -41,4 +43,9 @@ exports.registerAction = (request, response) => {
         request.flash('success', 'Registro efetuado com sucesso. Faça o login!');
         response.redirect('/users/login');
     });
+}
+
+exports.logout = (request, response) => {
+    request.logout();
+    response.redirect('/');
 }

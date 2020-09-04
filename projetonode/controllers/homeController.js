@@ -9,6 +9,8 @@ exports.index = async (request, response) => {
         tag: ''
     };
     
+    console.log(request.user);
+
     responseJson.tag = request.query.tag;
     
     const postFilter = (typeof responseJson.tag != 'undefined') ? { tags: responseJson.tag } : {};
@@ -24,8 +26,6 @@ exports.index = async (request, response) => {
             tags[i].class = "selected";
         }
     }
-
-    console.log(tags);
 
     responseJson.tags = tags;
 

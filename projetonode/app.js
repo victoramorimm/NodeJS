@@ -30,17 +30,26 @@ app.use(session({
  
 app.use(flash()); 
 
-app.use((request, response, next) => {
-    response.locals.h = helpers;  
-
-    response.locals.flashes = request.flash();
-
-    next();
-})
 
 app.use(passport.initialize());
 
 app.use(passport.session());
+
+app.use((request, response, next) => {
+    response.locals.h = { ...helpers };  
+
+    response.locals.flashes = request.flash();
+
+    response.locals.user = request.user;
+
+    if (request.isAuthenticated()) {
+        response.locals.h.menu = response.locals.h.menu.filter(i => i.logged);
+    } else {
+        response.locals.h.menu = response.locals.h.menu.filter(i => i.guest);
+    }
+
+    next();
+});
 
 const User = require('./models/User');
  
