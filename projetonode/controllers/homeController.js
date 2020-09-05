@@ -8,17 +8,16 @@ exports.index = async (request, response) => {
         tags: [],
         tag: ''
     };
-    
-    console.log(request.user);
 
     responseJson.tag = request.query.tag;
     
     const postFilter = (typeof responseJson.tag != 'undefined') ? { tags: responseJson.tag } : {};
-    //const postFilter = (typeof responseJson.tag != 'undefined') ? { tags: responseJson.tag }: {};
 
     const tagsPromise = Post.getTagsList();
-    const postsPromise = Post.find(postFilter);
+    const postsPromise = Post.findPosts(postFilter);
     
+    console.log(postsPromise[0]);
+
     const [ tags, posts ] = await Promise.all([ tagsPromise, postsPromise ]);
 
     for(let i in tags) {

@@ -8,9 +8,10 @@ exports.add = (request, response) => {
 
 exports.addAction = async (request, response) => {
    request.body.tags = request.body.tags.split(',').map(tag => tag.trim());
+   request.body.author = request.user._id;
 
     const post = new Post(request.body);
-    
+
     try {
         await post.save();
     } catch (error) {
