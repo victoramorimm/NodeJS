@@ -49,3 +49,24 @@ exports.logout = (request, response) => {
     request.logout();
     response.redirect('/');
 }
+
+exports.profile = (request, response) => {
+    response.render('profile');
+}
+
+exports.profileAction = async (request, response) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: request.user._id },
+            { name: request.body.name, email: request.body.email },
+            { new: true, runValidators: true }
+        )
+    } catch (error) {
+        request.flash('error', 'Erro: ' + error.message);
+        response.redirect('/profile');
+        return;
+    }
+
+    request.flash('success', 'Dados atualizados com sucesso!');
+    response.redirect('/profile');
+}
