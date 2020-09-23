@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const crypto = require('crypto');
+const mailHandler = require('../handlers/mailHandler');
+const { reset } = require('nodemon');
 
 exports.login = (request, response) => {
     response.render('login');
@@ -92,9 +94,18 @@ exports.forgetAction = async (request, response) => {
 
     const resetLink = `http://${request.headers.host}/users/reset/${user.resetPasswordToken}`
 
-    // TODO: Enviar o e-mail.
+    const to = `${user.name} <${user.email}>`
+    const html = `Testando e-mail com link: <br/> <a href="${resetLink}">Resetar Sua Senha</a>`
+    const text = `Testando e-mail com link: ${resetLink}`
 
-    request.flash('success', 'Te enviamos um e-mail com instruções.' + resetLink);
+    mailHandler.send({
+        to,
+        subject: 'Resetar sua senha',
+        html,
+        text
+    })
+
+    request.flash('success', 'Te enviamos um e-mail com instruções.');
 
     response.redirect('/users/login');
 }
