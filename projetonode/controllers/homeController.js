@@ -14,7 +14,7 @@ exports.index = async (request, response) => {
     const postFilter = (typeof responseJson.tag != 'undefined') ? { tags: responseJson.tag } : {};
 
     const tagsPromise = Post.getTagsList();
-    const postsPromise = Post.findPosts(postFilter);
+    const postsPromise = Post.find(postFilter).populate('author')
     
     console.log(postsPromise[0]);
 
