@@ -26,5 +26,27 @@ io.on('connection', (socket) => {
             joined: username,
             list: connectedUsers,
         });
+     });
+
+     // Disconnect é uma "mensagem" padrão que o Socket recebe quando uma conexão
+     // é derrubada.
+     socket.on('disconnect', () => {
+         connectedUsers = connectedUsers.filter(u => u != socket.username);
+         console.log(connectedUsers);
+
+         socket.broadcast.emit('list-update', {
+            left: socket.username,
+            list: connectedUsers
+         });
+     });
+
+     socket.on('send-msg', (txt) => {
+        let obj = {
+            username: socket.username,
+            message: txt
+        };
+
+        // socket.emit('show-msg', obj);
+        socket.broadcast.emit('show-msg', obj);
      })
 })

@@ -54,6 +54,10 @@ ul, li {
     font-size: 15px;
 }
 
+.chatList li span {
+    padding-right: 5px;
+}
+
 .chatList li.m-status {
     color: #333;
     font-style: italic;
