@@ -23,7 +23,6 @@ export class SignUpController implements Controller {
         return badRequest(new InvalidParamError('email'))
       }
     } catch (error) {
-      console.error(error)
       return serverError()
     }
   }
