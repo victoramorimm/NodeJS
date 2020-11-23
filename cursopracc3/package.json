@@ -11,6 +11,11 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "4.4.1"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
