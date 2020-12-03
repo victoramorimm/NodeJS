@@ -1,4 +1,4 @@
-import { Encrypter } from '../protocols/encrypter'
+import { Encrypter } from '../../protocols/encrypter'
 import { DbAddAccount } from './db-add-account'
 
 describe('DbAddAccount Usecase', () => {
