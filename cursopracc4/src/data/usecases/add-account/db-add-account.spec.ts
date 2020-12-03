@@ -1,6 +1,10 @@
-import { AddAccountRepository } from '../../protocols/add-account-repository'
 import { DbAddAccount } from './db-add-account'
-import { Encrypter, AddAccountModel, AccountModel } from './db-add-account-protocols'
+import {
+  Encrypter,
+  AddAccountModel,
+  AccountModel,
+  AddAccountRepository
+} from './db-add-account-protocols'
 
 describe('DbAddAccount Usecase', () => {
   const makeEncrypterStub = (): Encrypter => {
