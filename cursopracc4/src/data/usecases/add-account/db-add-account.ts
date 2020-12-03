@@ -1,5 +1,5 @@
-import { AddAccountRepository } from '../../protocols/add-account-repository'
 import {
+  AddAccountRepository,
   AccountModel,
   AddAccount,
   AddAccountModel,
