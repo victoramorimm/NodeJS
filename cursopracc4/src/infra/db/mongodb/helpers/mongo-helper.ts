@@ -1,11 +1,12 @@
 import { Collection, MongoClient } from 'mongodb'
 
 export const MongoHelper = {
-  uri: null as string,
   client: null as MongoClient,
+  uri: null as string,
 
   async connect (uri: string): Promise<void> {
     this.uri = uri
+
     this.client = await MongoClient.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
