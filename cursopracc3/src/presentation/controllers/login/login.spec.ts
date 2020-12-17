@@ -12,25 +12,28 @@ const makeFakeRequest = (): HttpRequest => {
   }
 }
 
-interface SutTypes {
-  sut: LoginController
-  emailValidator: EmailValidator
-}
-
-const makeSut = (): SutTypes => {
+const makeEmailValidatorStub = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {
       return true
     }
   }
 
-  const emailValidator = new EmailValidatorStub()
+  return new EmailValidatorStub()
+}
 
-  const sut = new LoginController(emailValidator)
+interface SutTypes {
+  sut: LoginController
+  emailValidatorStub: EmailValidator
+}
+
+const makeSut = (): SutTypes => {
+  const emailValidatorStub = makeEmailValidatorStub()
+  const sut = new LoginController(emailValidatorStub)
 
   return {
     sut,
-    emailValidator
+    emailValidatorStub
   }
 }
 
@@ -64,9 +67,9 @@ describe('Login Controller ', () => {
   })
 
   test('Should return 400 if an invalid email is provided', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub } = makeSut()
 
-    jest.spyOn(emailValidator, 'isValid').mockReturnValueOnce(false)
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
 
     const httpRequest = {
       body: {
@@ -81,9 +84,9 @@ describe('Login Controller ', () => {
   })
 
   test('Should call EmailValidator with correct email', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub } = makeSut()
 
-    const isValidSpy = jest.spyOn(emailValidator, 'isValid')
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
 
     const httpRequest = makeFakeRequest()
 
@@ -93,9 +96,9 @@ describe('Login Controller ', () => {
   })
 
   test('Should return 500 if EmailValidator throws', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub } = makeSut()
 
-    jest.spyOn(emailValidator, 'isValid').mockImplementationOnce(() => {
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
       throw new Error()
     })
 
