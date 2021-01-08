@@ -13,6 +13,6 @@
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-misused-promises": "off",
-    "semi": "off"
+    "@typescript-eslint/space-before-function-paren": "off"
   }
 }
