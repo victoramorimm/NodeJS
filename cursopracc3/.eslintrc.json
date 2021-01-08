@@ -1,5 +1,9 @@
 {
-  "extends": "standard-with-typescript",
+  "extends": [
+    "standard-with-typescript",
+    "prettier"
+  ],
+
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -8,6 +12,7 @@
     "@typescript-eslint/method-signature-style": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/no-misused-promises": "off",
+    "semi": "off"
   }
 }
