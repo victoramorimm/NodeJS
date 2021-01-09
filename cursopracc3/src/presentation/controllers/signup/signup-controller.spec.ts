@@ -1,15 +1,20 @@
-import { SignUpController } from './signup'
+import { SignUpController } from './signup-controller'
 import { MissingParamError, ServerError } from '../../errors'
-import { AccountModel, AddAccount, AddAccountModel, Validation } from './signup-protocols'
+import {
+  AccountModel,
+  AddAccount,
+  AddAccountModel,
+  Validation,
+} from './signup-controller-protocols'
 import { HttpRequest } from '../../protocols'
 import { ok, serverError, badRequest } from '../../helpers/http/http-helper'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = makeFakeAccount()
 
-      return new Promise(resolve => resolve(fakeAccount))
+      return new Promise((resolve) => resolve(fakeAccount))
     }
   }
   return new AddAccountStub()
@@ -17,7 +22,7 @@ const makeAddAccount = (): AddAccount => {
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error {
+    validate(input: any): Error {
       return null
     }
   }
@@ -30,7 +35,7 @@ const makeFakeAccount = (): AccountModel => {
     id: 'valid_id',
     name: 'valid_name',
     email: 'valid_email@mail.com',
-    password: 'valid_password'
+    password: 'valid_password',
   }
 }
 
@@ -40,8 +45,8 @@ const makeFakeRequest = (): HttpRequest => {
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password',
-      passwordConfirmation: 'any_password'
-    }
+      passwordConfirmation: 'any_password',
+    },
   }
 }
 
@@ -61,7 +66,7 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     addAccountStub,
-    validationStub
+    validationStub,
   }
 }
 
@@ -78,7 +83,7 @@ describe('SignUp Controller', () => {
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
       email: 'any_email@mail.com',
-      password: 'any_password'
+      password: 'any_password',
     })
   })
 
@@ -121,7 +126,9 @@ describe('SignUp Controller', () => {
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationStub } = makeSut()
 
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+    jest
+      .spyOn(validationStub, 'validate')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
 
     const httpRequest = makeFakeRequest()
 

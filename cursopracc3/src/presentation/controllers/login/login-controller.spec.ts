@@ -1,22 +1,27 @@
 import { MissingParamError } from '../../errors'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
-import { HttpRequest, Authentication } from './login-protocols'
-import { LoginController } from './login'
-import { Validation } from '../signup/signup-protocols'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../helpers/http/http-helper'
+import { HttpRequest, Authentication } from './login-controller-protocols'
+import { LoginController } from './login-controller'
+import { Validation } from '../signup/signup-controller-protocols'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
 
 const makeFakeRequest = (): HttpRequest => {
   return {
     body: {
       email: 'any_email@mail.com',
-      password: 'any_password'
-    }
+      password: 'any_password',
+    },
   }
 }
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error {
+    validate(input: any): Error {
       return null
     }
   }
@@ -26,8 +31,8 @@ const makeValidation = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
-      return new Promise(resolve => resolve('any_token'))
+    async auth(authentication: AuthenticationModel): Promise<string> {
+      return new Promise((resolve) => resolve('any_token'))
     }
   }
 
@@ -48,7 +53,7 @@ const makeSut = (): SutTypes => {
   return {
     sut,
     authenticationStub,
-    validationStub
+    validationStub,
   }
 }
 
@@ -64,15 +69,16 @@ describe('Login Controller ', () => {
 
     expect(authSpy).toHaveBeenCalledWith({
       email: 'any_email@mail.com',
-      password: 'any_password'
+      password: 'any_password',
     })
   })
 
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationStub } = makeSut()
 
-    jest.spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(new Promise((resolve) => resolve(null)))
 
     const httpRequest = makeFakeRequest()
 
@@ -84,8 +90,11 @@ describe('Login Controller ', () => {
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
 
-    jest.spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error()))
+      )
 
     const httpRequest = makeFakeRequest()
 
@@ -101,9 +110,11 @@ describe('Login Controller ', () => {
 
     const httpResponse = await sut.handle(httpRequest)
 
-    expect(httpResponse).toEqual(ok({
-      accessToken: 'any_token'
-    }))
+    expect(httpResponse).toEqual(
+      ok({
+        accessToken: 'any_token',
+      })
+    )
   })
 
   test('Should call Validation with correct value', async () => {
@@ -121,7 +132,9 @@ describe('Login Controller ', () => {
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationStub } = makeSut()
 
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+    jest
+      .spyOn(validationStub, 'validate')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
 
     const httpRequest = makeFakeRequest()
 
