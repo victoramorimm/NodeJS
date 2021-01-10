@@ -5,7 +5,7 @@
   ],
 
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json"
   },
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": 0,
