@@ -22,5 +22,5 @@ export const makeSignUpController = (): Controller => {
     dbAddAccount
   )
 
-  return new LogControllerDecorator(signUpController)
+  return new LogControllerDecorator(signUpController, null)
 }
