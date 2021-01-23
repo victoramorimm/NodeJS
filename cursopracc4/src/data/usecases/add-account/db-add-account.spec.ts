@@ -9,8 +9,8 @@ import {
 describe('DbAddAccount Usecase', () => {
   const makeEncrypterStub = (): Encrypter => {
     class EncrypterStub {
-      async encrypt (password: string): Promise<string> {
-        return new Promise(resolve => resolve('hashed_password'))
+      async encrypt(password: string): Promise<string> {
+        return new Promise((resolve) => resolve('hashed_password'))
       }
     }
     return new EncrypterStub()
@@ -18,7 +18,7 @@ describe('DbAddAccount Usecase', () => {
 
   const makeAddAccountRepositoryStub = (): AddAccountRepository => {
     class AddAccountRepositoryStub {
-      async add (account: AddAccountModel): Promise<AccountModel> {
+      async add(account: AddAccountModel): Promise<AccountModel> {
         const fakeAccount = {
           id: 'valid_id',
           name: 'valid_name',
@@ -72,10 +72,9 @@ describe('DbAddAccount Usecase', () => {
   test('Should throw if Encrypter throws', async () => {
     const { sut, encrypterStub } = makeSut()
 
-    jest.spyOn(encrypterStub, 'encrypt')
-      .mockImplementationOnce(() => {
-        return new Promise((resolve, reject) => reject(new Error()))
-      })
+    jest.spyOn(encrypterStub, 'encrypt').mockImplementationOnce(() => {
+      return new Promise((resolve, reject) => reject(new Error()))
+    })
 
     const accountData = {
       name: 'valid_name',
@@ -111,10 +110,9 @@ describe('DbAddAccount Usecase', () => {
   test('Should throw if AddAccountRepository throws', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
 
-    jest.spyOn(addAccountRepositoryStub, 'add')
-      .mockImplementationOnce(() => {
-        return new Promise((resolve, reject) => reject(new Error()))
-      })
+    jest.spyOn(addAccountRepositoryStub, 'add').mockImplementationOnce(() => {
+      return new Promise((resolve, reject) => reject(new Error()))
+    })
 
     const accountData = {
       name: 'valid_name',
