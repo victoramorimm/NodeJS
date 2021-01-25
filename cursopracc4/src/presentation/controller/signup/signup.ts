@@ -3,24 +3,22 @@ import {
   EmailValidator,
   Controller,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
+  Validation
 } from './signup-protocols'
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
-import { MongoHelper } from '../../../infra/db/mongodb/helpers/mongo-helper'
-import env from '../../../main/config/env'
 
 export class SignUpController implements Controller {
-  private readonly emailValidator: EmailValidator
-  private readonly addAccount: AddAccount
-
-  constructor(emailValidator: EmailValidator, addAccount: AddAccount) {
-    this.emailValidator = emailValidator
-    this.addAccount = addAccount
-  }
+  constructor(
+    private readonly emailValidator: EmailValidator,
+    private readonly addAccount: AddAccount,
+    private readonly validation: Validation
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    await MongoHelper.connect(env.mongoUrl)
+    this.validation.validate(httpRequest.body)
+
     try {
       const requiredFields = [
         'name',
