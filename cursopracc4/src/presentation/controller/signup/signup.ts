@@ -21,7 +21,7 @@ export class SignUpController implements Controller {
       const error = this.validation.validate(httpRequest.body)
 
       if (error) {
-        return badRequest(new MissingParamError('any_field'))
+        return badRequest(error)
       }
 
       const requiredFields = [
