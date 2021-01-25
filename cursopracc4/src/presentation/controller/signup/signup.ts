@@ -5,10 +5,10 @@ import {
   HttpRequest,
   HttpResponse
 } from './signup-protocols'
-import { InvalidParamError, MissingParamError } from '../errors'
-import { badRequest, ok, serverError } from '../helpers/http-helper'
-import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
-import env from '../../main/config/env'
+import { InvalidParamError, MissingParamError } from '../../errors'
+import { badRequest, ok, serverError } from '../../helpers/http-helper'
+import { MongoHelper } from '../../../infra/db/mongodb/helpers/mongo-helper'
+import env from '../../../main/config/env'
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator

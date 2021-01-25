@@ -4,10 +4,10 @@ import {
   AddAccountModel,
   EmailValidator
 } from './signup-protocols'
-import { InvalidParamError, MissingParamError, ServerError } from '../errors'
+import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { SignUpController } from './signup'
-import { HttpRequest } from '../protocols'
-import { badRequest, ok, serverError } from '../helpers/http-helper'
+import { HttpRequest } from '../../protocols'
+import { badRequest, ok, serverError } from '../../helpers/http-helper'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
