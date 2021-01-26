@@ -2,7 +2,6 @@ import {
   AccountModel,
   AddAccount,
   AddAccountModel,
-  EmailValidator,
   Validation
 } from './signup-protocols'
 import { MissingParamError, ServerError } from '../../errors'
