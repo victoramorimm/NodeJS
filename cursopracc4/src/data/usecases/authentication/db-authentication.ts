@@ -29,7 +29,10 @@ export class DbAuthentication implements Authentication {
       if (isValid) {
         const accessToken = await this.tokenGenerator.generate(account.id)
 
-        await this.updateAccessTokenRepository.update(account.id, accessToken)
+        await this.updateAccessTokenRepository.update({
+          id: account.id,
+          token: accessToken
+        })
 
         return accessToken
       }

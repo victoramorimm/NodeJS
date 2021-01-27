@@ -1,3 +1,4 @@
+import { UpdateAccessTokenModel } from '../../protocols/db/update-access-token'
 import { DbAuthentication } from './db-authentication'
 import {
   AccountModel,
@@ -56,7 +57,7 @@ const makeTokenGenerator = (): TokenGenerator => {
 
 const makeUpdateAccessTokenRepository = (): UpdateAccessToken => {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessToken {
-    async update(id: string, token: string): Promise<AccountModel> {
+    async update(data: UpdateAccessTokenModel): Promise<AccountModel> {
       const fakeAccount = makeFakeAccount()
       return new Promise((resolve) => resolve(fakeAccount))
     }
@@ -236,7 +237,10 @@ describe('DbAuthentication Usecase', () => {
 
     await sut.auth(fakeAuthentication)
 
-    expect(updateSpy).toHaveBeenCalledWith('any_id', 'any_token')
+    expect(updateSpy).toHaveBeenCalledWith({
+      id: 'any_id',
+      token: 'any_token'
+    })
   })
 
   test('Should throw if UpdateAccessTokenRepository throws', async () => {
