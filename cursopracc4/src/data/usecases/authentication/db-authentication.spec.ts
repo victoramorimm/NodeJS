@@ -1,6 +1,12 @@
 import { AccountModel } from '../../../domain/models/account'
+import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email'
 import { DbAuthentication } from './db-authentication'
+
+const makeFakeAuthentication = (): AuthenticationModel => ({
+  email: 'any_email@mail.com',
+  password: 'any_password'
+})
 
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
@@ -45,10 +51,9 @@ describe('DbAuthentication Usecase', () => {
       'loadByEmail'
     )
 
-    await sut.auth({
-      email: 'any_email@mail.com',
-      password: 'any_password'
-    })
+    const fakeAuthentication = makeFakeAuthentication()
+
+    await sut.auth(fakeAuthentication)
 
     expect(loadByEmailSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
