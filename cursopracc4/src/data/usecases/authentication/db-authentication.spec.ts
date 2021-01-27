@@ -69,8 +69,8 @@ describe('DbAuthentication Usecase', () => {
 
     const fakeAuthentication = makeFakeAuthentication()
 
-    const accessToken = sut.auth(fakeAuthentication)
+    const promise = sut.auth(fakeAuthentication)
 
-    await expect(accessToken).rejects.toThrow()
+    await expect(promise).rejects.toThrow()
   })
 })
