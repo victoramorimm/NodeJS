@@ -21,6 +21,10 @@ export class AccountMongoRepository
 
     const account = await accountCollection.findOne({ email })
 
-    return MongoHelper.map(account)
+    if (account) {
+      return MongoHelper.map(account)
+    }
+
+    return null
   }
 }
