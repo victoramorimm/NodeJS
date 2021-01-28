@@ -1,5 +1,6 @@
 import { BcryptAdapter } from './bcrypt-adapter'
 import bcrypt from 'bcrypt'
+import { HashComparerModel } from '../../data/protocols/criptography/hash-comparer'
 
 jest.mock('bcrypt', () => ({
   async hash(): Promise<string> {
@@ -10,6 +11,11 @@ jest.mock('bcrypt', () => ({
     return new Promise((resolve) => resolve(true))
   }
 }))
+
+const makeFakeData = (): HashComparerModel => ({
+  value: 'any_password',
+  hashToCompare: 'hashed_password'
+})
 
 const salt = 12
 
@@ -58,10 +64,9 @@ describe('Bcrypt Adapter', () => {
 
       const compareSpy = jest.spyOn(bcrypt, 'compare')
 
-      await sut.compare({
-        value: 'any_password',
-        hashToCompare: 'hashed_password'
-      })
+      const fakeData = makeFakeData()
+
+      await sut.compare(fakeData)
 
       expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password')
     })
@@ -69,10 +74,9 @@ describe('Bcrypt Adapter', () => {
     test('Should return true when compare succeeds', async () => {
       const sut = makeSut()
 
-      const isValid = await sut.compare({
-        value: 'any_password',
-        hashToCompare: 'hashed_password'
-      })
+      const fakeData = makeFakeData()
+
+      const isValid = await sut.compare(fakeData)
 
       expect(isValid).toBe(true)
     })
@@ -84,10 +88,9 @@ describe('Bcrypt Adapter', () => {
         .spyOn(bcrypt, 'compare')
         .mockReturnValueOnce(new Promise((resolve) => resolve(false)))
 
-      const isValid = await sut.compare({
-        value: 'any_password',
-        hashToCompare: 'hashed_password'
-      })
+      const fakeData = makeFakeData()
+
+      const isValid = await sut.compare(fakeData)
 
       expect(isValid).toBe(false)
     })
@@ -101,10 +104,9 @@ describe('Bcrypt Adapter', () => {
           new Promise((resolve, reject) => reject(new Error()))
         )
 
-      const promise = sut.compare({
-        value: 'any_password',
-        hashToCompare: 'hashed_password'
-      })
+      const fakeData = makeFakeData()
+
+      const promise = sut.compare(fakeData)
 
       await expect(promise).rejects.toThrow()
     })
