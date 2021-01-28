@@ -1,10 +1,11 @@
+import { UpdateAccessTokenRepository } from '../../protocols/db/update-access-token'
 import {
   Authentication,
   AuthenticationModel,
   HashComparer,
   Encrypter,
   LoadAccountByEmailRepository,
-  UpdateAccessToken
+  UpdateAccessTokenModel
 } from './db-authentication-protocols'
 
 export class DbAuthentication implements Authentication {
@@ -12,7 +13,7 @@ export class DbAuthentication implements Authentication {
     private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository,
     private readonly hashComparer: HashComparer,
     private readonly encrypter: Encrypter,
-    private readonly updateAccessTokenRepository: UpdateAccessToken
+    private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
   ) {}
 
   async auth(authentication: AuthenticationModel): Promise<string> {
