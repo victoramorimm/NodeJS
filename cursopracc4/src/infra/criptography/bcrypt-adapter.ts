@@ -23,10 +23,6 @@ export class BcryptAdapter implements Hasher, HashComparer {
 
     const isValid = await bcrypt.compare(value, hashToCompare)
 
-    if (isValid) {
-      return isValid
-    }
-
-    return null
+    return isValid
   }
 }
