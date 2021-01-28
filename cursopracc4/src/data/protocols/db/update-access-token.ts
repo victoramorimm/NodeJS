@@ -6,5 +6,5 @@ export interface UpdateAccessTokenModel {
 }
 
 export interface UpdateAccessToken {
-  update(data: UpdateAccessTokenModel): Promise<AccountModel>
+  updateAccessToken(data: UpdateAccessTokenModel): Promise<AccountModel>
 }
