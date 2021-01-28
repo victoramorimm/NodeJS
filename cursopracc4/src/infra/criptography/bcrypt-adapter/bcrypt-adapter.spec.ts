@@ -106,7 +106,7 @@ describe('Bcrypt Adapter', () => {
 
       const fakeData = makeFakeData()
 
-      const promise = await sut.compare(fakeData)
+      const promise = sut.compare(fakeData)
 
       await expect(promise).rejects.toThrow()
     })
