@@ -1,4 +1,4 @@
-import { UpdateAccessTokenModel } from '../../protocols/db/update-access-token'
+import { UpdateAccessTokenModel } from '../../protocols/db/account/update-access-token'
 import { DbAuthentication } from './db-authentication'
 import {
   AccountModel,
