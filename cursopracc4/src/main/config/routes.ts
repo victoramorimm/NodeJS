@@ -7,7 +7,6 @@ export default (app: Express): void => {
   app.use('/api', router)
 
   // Automatizando o import dos routes no nosso Router.
-
   readdirSync(`${__dirname}/../routes`).map(async (file) => {
     if (!file.includes('.test.')) {
       ;(await import(`../routes/${file}`)).default(router)

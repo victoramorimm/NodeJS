@@ -13,8 +13,7 @@
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
-    "postinstall": "husky install"
+    "test:ci": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
@@ -53,5 +52,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
     "validator": "^13.5.1"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
