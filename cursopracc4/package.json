@@ -8,6 +8,7 @@
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
     "up": "npm run build && docker-compose up",
+    "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --runInBand --detectOpenHandles",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
