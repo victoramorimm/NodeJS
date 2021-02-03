@@ -1,3 +1,4 @@
+import { LoadAccountByEmailRepository } from '../authentication/db-authentication-protocols'
 import { DbAddAccount } from './db-add-account'
 import {
   Hasher,
@@ -41,10 +42,24 @@ describe('DbAddAccount Usecase', () => {
     return new AddAccountRepositoryStub()
   }
 
+  const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
+    class LoadAccountByEmailRepositoryStub
+      implements LoadAccountByEmailRepository {
+      async loadByEmail(email: string): Promise<AccountModel> {
+        const fakeAccount = makeFakeAccount()
+
+        return new Promise((resolve) => resolve(fakeAccount))
+      }
+    }
+
+    return new LoadAccountByEmailRepositoryStub()
+  }
+
   interface SutTypes {
     sut: DbAddAccount
     hasherStub: Hasher
     addAccountRepositoryStub: AddAccountRepository
+    loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   }
 
   const makeSut = (): SutTypes => {
@@ -52,12 +67,19 @@ describe('DbAddAccount Usecase', () => {
 
     const addAccountRepositoryStub = makeAddAccountRepositoryStub()
 
-    const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub)
+    const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
+
+    const sut = new DbAddAccount(
+      hasherStub,
+      addAccountRepositoryStub,
+      loadAccountByEmailRepositoryStub
+    )
 
     return {
       sut,
       hasherStub,
-      addAccountRepositoryStub
+      addAccountRepositoryStub,
+      loadAccountByEmailRepositoryStub
     }
   }
 
@@ -135,5 +157,20 @@ describe('DbAddAccount Usecase', () => {
     const fakeAccount = makeFakeAccount()
 
     expect(account).toEqual(fakeAccount)
+  })
+
+  test('Should call LoadAccountByEmailRepository with correct value', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+
+    const loadByEmailSpy = jest.spyOn(
+      loadAccountByEmailRepositoryStub,
+      'loadByEmail'
+    )
+
+    const fakeAccountData = makeFakeAccountData()
+
+    await sut.add(fakeAccountData)
+
+    expect(loadByEmailSpy).toHaveBeenCalledWith('valid_email@mail.com')
   })
 })
