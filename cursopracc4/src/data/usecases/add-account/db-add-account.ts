@@ -1,5 +1,5 @@
-import { LoadAccountByEmailRepository } from '../authentication/db-authentication-protocols'
 import {
+  LoadAccountByEmailRepository,
   AddAccountRepository,
   AccountModel,
   AddAccount,

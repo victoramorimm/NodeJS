@@ -1,6 +1,6 @@
-import { UpdateAccessTokenModel } from '../../protocols/db/account/update-access-token'
 import { DbAuthentication } from './db-authentication'
 import {
+  UpdateAccessTokenModel,
   AccountModel,
   HashComparer,
   HashComparerModel,
@@ -58,7 +58,6 @@ const makeEncrypter = (): Encrypter => {
 const makeUpdateAccessTokenRepository = (): UpdateAccessTokenRepository => {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
     async updateAccessToken(data: UpdateAccessTokenModel): Promise<void> {
-      const fakeAccount = makeFakeAccount()
       return new Promise((resolve) => resolve())
     }
   }

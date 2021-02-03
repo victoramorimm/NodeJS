@@ -1,5 +1,5 @@
-import { UpdateAccessTokenRepository } from '../../protocols/db/account/update-access-token'
 import {
+  UpdateAccessTokenRepository,
   Authentication,
   AuthenticationModel,
   HashComparer,
