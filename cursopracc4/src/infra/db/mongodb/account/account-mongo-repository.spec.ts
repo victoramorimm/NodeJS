@@ -6,11 +6,11 @@ let accountCollection: Collection
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
-    MongoHelper.connect(process.env.MONGO_URL)
+    await MongoHelper.connect(process.env.MONGO_URL)
   })
 
   afterAll(async () => {
-    MongoHelper.disconnect()
+    await MongoHelper.disconnect()
   })
 
   beforeEach(async () => {
