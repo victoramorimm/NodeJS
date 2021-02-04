@@ -1,4 +1,5 @@
 import { Collection } from 'mongodb'
+import { AddSurveyModel } from '../../../../data/protocols/survey/add-survey-model'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
@@ -18,6 +19,19 @@ beforeEach(async () => {
   await surveyCollection.deleteMany({})
 })
 
+const makeFakeSurveyData = (): AddSurveyModel => ({
+  question: 'any_question',
+  answers: [
+    {
+      image: 'any_image',
+      answer: 'any_answer'
+    },
+    {
+      answer: 'other_answer'
+    }
+  ]
+})
+
 const makeSut = (): SurveyMongoRepository => {
   return new SurveyMongoRepository()
 }
@@ -26,18 +40,7 @@ describe('Survey Mongo Repository', () => {
   test('Should add a survey on success', async () => {
     const sut = makeSut()
 
-    const fakeSurveyData = {
-      question: 'any_question',
-      answers: [
-        {
-          image: 'any_image',
-          answer: 'any_answer'
-        },
-        {
-          answer: 'other_answer'
-        }
-      ]
-    }
+    const fakeSurveyData = makeFakeSurveyData()
 
     await sut.add(fakeSurveyData)
 
