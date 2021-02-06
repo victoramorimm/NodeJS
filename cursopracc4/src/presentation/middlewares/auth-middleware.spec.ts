@@ -5,6 +5,13 @@ import { LoadAccountByToken } from '../../domain/usecases/load-account-by-token'
 import { AccountModel } from '../../domain/models/account'
 import { HttpRequest } from '../protocols'
 
+export const makeFakeAccount = (): AccountModel => ({
+  id: 'any_id',
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password'
+})
+
 export const makeFakeRequest = (): HttpRequest => ({
   headers: {
     'x-access-token': 'any_token'
@@ -14,12 +21,7 @@ export const makeFakeRequest = (): HttpRequest => ({
 export const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     load(accessToken: string, role?: string): Promise<AccountModel> {
-      const fakeAccount: AccountModel = {
-        id: 'any_id',
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password'
-      }
+      const fakeAccount = makeFakeAccount()
 
       return new Promise((resolve) => resolve(fakeAccount))
     }
