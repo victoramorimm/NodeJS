@@ -33,7 +33,7 @@ const makeValidation = (): Validation => {
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
     async auth(authentication: AuthenticationModel): Promise<string> {
-      return 'any_token'
+      return new Promise((resolve) => resolve('any_token'))
     }
   }
 

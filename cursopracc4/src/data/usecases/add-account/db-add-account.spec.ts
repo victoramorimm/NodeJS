@@ -21,7 +21,7 @@ describe('DbAddAccount Usecase', () => {
     password: 'hashed_password'
   })
 
-  const makeHasherStub = (): Hasher => {
+  const makeHasher = (): Hasher => {
     class HasherStub {
       async hash(password: string): Promise<string> {
         return new Promise((resolve) => resolve('hashed_password'))
@@ -30,12 +30,12 @@ describe('DbAddAccount Usecase', () => {
     return new HasherStub()
   }
 
-  const makeAddAccountRepositoryStub = (): AddAccountRepository => {
+  const makeAddAccountRepository = (): AddAccountRepository => {
     class AddAccountRepositoryStub {
       async add(account: AddAccountModel): Promise<AccountModel> {
         const fakeAccount = makeFakeAccount()
 
-        return fakeAccount
+        return new Promise((resolve) => resolve(fakeAccount))
       }
     }
 
@@ -61,9 +61,9 @@ describe('DbAddAccount Usecase', () => {
   }
 
   const makeSut = (): SutTypes => {
-    const hasherStub = makeHasherStub()
+    const hasherStub = makeHasher()
 
-    const addAccountRepositoryStub = makeAddAccountRepositoryStub()
+    const addAccountRepositoryStub = makeAddAccountRepository()
 
     const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
 

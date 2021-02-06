@@ -32,7 +32,7 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'valid_password'
 })
 
-const makeAddAccountStub = (): AddAccount => {
+const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add(account: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = makeFakeAccount()
@@ -71,7 +71,7 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const addAccountStub = makeAddAccountStub()
+  const addAccountStub = makeAddAccount()
 
   const validationStub = makeValidation()
 

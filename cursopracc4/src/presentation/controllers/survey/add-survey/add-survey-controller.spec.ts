@@ -11,7 +11,7 @@ import {
 } from './add-survey-protocols'
 import { AddSurveyController } from './add-survey-controller'
 
-const makeValidationStub = (): Validation => {
+const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate(input: any): Error {
       return null
@@ -21,9 +21,9 @@ const makeValidationStub = (): Validation => {
   return new ValidationStub()
 }
 
-const makeAddSurveyStub = (): AddSurvey => {
+const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    add(data: AddSurveyModel): Promise<void> {
+    async add(data: AddSurveyModel): Promise<void> {
       return new Promise((resolve) => resolve())
     }
   }
@@ -38,9 +38,9 @@ export interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const validationStub = makeValidationStub()
+  const validationStub = makeValidation()
 
-  const addSurveyStub = makeAddSurveyStub()
+  const addSurveyStub = makeAddSurvey()
 
   const sut = new AddSurveyController(validationStub, addSurveyStub)
 
