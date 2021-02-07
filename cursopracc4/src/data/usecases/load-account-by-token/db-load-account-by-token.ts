@@ -18,7 +18,9 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
         role
       )
 
-      return account
+      if (account) {
+        return account
+      }
     }
 
     return null
