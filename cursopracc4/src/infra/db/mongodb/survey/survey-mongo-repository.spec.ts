@@ -38,17 +38,19 @@ const makeSut = (): SurveyMongoRepository => {
 }
 
 describe('Survey Mongo Repository', () => {
-  test('Should add a survey on success', async () => {
-    const sut = makeSut()
+  describe('add()', () => {
+    test('Should add a survey on success', async () => {
+      const sut = makeSut()
 
-    const fakeSurveyData = makeFakeSurveyData()
+      const fakeSurveyData = makeFakeSurveyData()
 
-    await sut.add(fakeSurveyData)
+      await sut.add(fakeSurveyData)
 
-    const survey = await surveyCollection.findOne({
-      question: 'any_question'
+      const survey = await surveyCollection.findOne({
+        question: 'any_question'
+      })
+
+      expect(survey).toBeTruthy()
     })
-
-    expect(survey).toBeTruthy()
   })
 })
