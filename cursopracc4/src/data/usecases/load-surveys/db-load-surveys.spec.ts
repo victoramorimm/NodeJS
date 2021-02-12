@@ -1,6 +1,7 @@
 import { DbLoadSurveys } from './db-load-surveys'
 import { LoadSurveysRepository } from '../../protocols/db/survey/load-surveys-repository'
 import { SurveyModel } from '../../../domain/models/survey'
+import MockDate from 'mockdate'
 
 export const makeFakeSurveys = (): SurveyModel[] => {
   return [
@@ -58,6 +59,14 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbLoadSurveys Usecase', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   test('Should call LoadSurveysRepository', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
 

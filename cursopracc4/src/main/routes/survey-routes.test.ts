@@ -73,7 +73,27 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 204 on add survey with valid accessToken', async () => {
-      const accessToken = await makeAccessToken()
+      const result = await accountCollection.insertOne({
+        name: 'Victor',
+        email: 'victorvmrgamer@gmail.com',
+        password: '123',
+        role: 'admin'
+      })
+
+      const id = result.ops[0]._id
+
+      const accessToken = sign({ id }, env.jwtSecret)
+
+      await accountCollection.updateOne(
+        {
+          _id: id
+        },
+        {
+          $set: {
+            accessToken
+          }
+        }
+      )
 
       await request(app)
         .post('/api/surveys')
