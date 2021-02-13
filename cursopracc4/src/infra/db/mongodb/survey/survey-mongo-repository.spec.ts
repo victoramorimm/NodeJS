@@ -1,6 +1,6 @@
 import { Collection } from 'mongodb'
-import { AddSurveyModel } from '../../../../data/protocols/survey/add-survey-model'
-import { MongoHelper } from '../helpers/mongo-helper'
+import { AddSurveyModel } from '@/data/protocols/survey/add-survey-model'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
 let surveyCollection: Collection
