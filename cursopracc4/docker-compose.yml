@@ -14,6 +14,8 @@ services:
     working_dir: /usr/src/curso-pracc-4
     restart: always
     command: bash -c "npm install --only=prod && npm run debug"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/clean-node-api
     volumes:
       - ./dist/:/usr/src/curso-pracc-4/dist/
       - ./package.json:/usr/src/curso-pracc-4/package.json
