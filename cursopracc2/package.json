@@ -33,6 +33,6 @@
     "@types/validator": "^13.1.0"
   },
   "dependencies": {
-    "validator": "^13.1.17"
+    "validator": "^13.7.0"
   }
 }
